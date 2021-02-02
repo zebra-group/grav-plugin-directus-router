@@ -1,0 +1,7 @@
+enabled: true
+mapping:
+  table: routing_table
+  request_field: field_for_deprecated_url
+  target_field: field_for_target_site
+  status_field: field_for_status_code
+

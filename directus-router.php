@@ -69,19 +69,25 @@ class DirectusRouterPlugin extends Plugin
             $this->config["plugins.directus"]['directus']['token'],
             isset($this->config["plugins.directus"]['disableCors']) && $this->config["plugins.directus"]['disableCors']
         );
-        $requestedUri = $this->grav['uri']->url;
+        $requestedUri = $this->grav['uri']->path();
 
         $filter = [
             $this->config()['mapping']['request_field'] => [
-                'operator' => '_eq',
+                'operator' => '_like',
                 'value' => $requestedUri
             ]
         ];
         $requestURL = $directusUtility->generateRequestUrl($this->config()['mapping']['table'], 0, 2, $filter);
         $redirectData = $directusUtility->get($requestURL)->toArray();
 
-        $redirectUrl = $redirectData['data']['0'][$this->config()['mapping']['target_field']];
-        $redirectStatusCode = $redirectData['data']['0'][$this->config()['mapping']['status_field']];
+        if(isset($redirectData['data']['0'])) {
+            $redirectUrl = $redirectData['data']['0'][$this->config()['mapping']['target_field']];
+            $redirectStatusCode = $redirectData['data']['0'][$this->config()['mapping']['status_field']];
+        } else {
+            $redirectUrl = '';
+            $redirectStatusCode = false;
+        }
+
 
         if ($redirectUrl && $redirectStatusCode) {
             $this->redirect($redirectUrl, $redirectStatusCode);

@@ -73,7 +73,7 @@ class DirectusRouterPlugin extends Plugin
 
         $filter = [
             $this->config()['mapping']['request_field'] => [
-                'operator' => '_like',
+                'operator' => '_eq',
                 'value' => $requestedUri
             ]
         ];

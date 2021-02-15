@@ -1,6 +1,6 @@
 # Directus Router Plugin
 
-**This README.md file should be modified to describe the features, installation, configuration, and general usage of the plugin.**
+**This extension reads routing data from a directus backend and reroutes deprecated urls**
 
 The **Directus Router** Plugin is an extension for [Grav CMS](http://github.com/getgrav/grav). redirects expired urls to new routes configured in directus
 
@@ -38,19 +38,23 @@ Here is the default configuration and an explanation of available options:
 
 ```yaml
 enabled: true
+mapping:
+  table: routing_table
+  request_field: field_for_deprecated_url
+  target_field: field_for_target_site
+  status_field: field_for_status_code
 ```
+
+table - the table name of the routing data
+
+request_field - the route of the deprecated url
+target_field - the new url for the redirect
+status_field - the status code field. (example value is 301 for permanently moved)
 
 Note that if you use the Admin Plugin, a file with your configuration named directus-router.yaml will be saved in the `user/config/plugins/`-folder once the configuration is saved in the Admin.
 
 ## Usage
 
-**Describe how to use the plugin.**
+**If this plugin is correctly configured, it will work out of the box.**
 
-## Credits
-
-**Did you incorporate third-party code? Want to thank somebody?**
-
-## To Do
-
-- [ ] Future plans, if any
 

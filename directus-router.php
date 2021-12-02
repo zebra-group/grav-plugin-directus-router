@@ -77,6 +77,10 @@ class DirectusRouterPlugin extends Plugin
                 'value' => $requestedUri
             ]
         ];
+        foreach ($this->config()['additionalFilters'] as $field => $filterItem) {
+          $filter[$field] = $filterItem;
+        }
+
         $requestURL = $directusUtility->generateRequestUrl($this->config()['mapping']['table'], 0, 2, $filter);
         $redirectData = $directusUtility->get($requestURL)->toArray();
 

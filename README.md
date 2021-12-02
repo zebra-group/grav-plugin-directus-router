@@ -43,6 +43,10 @@ mapping:
   request_field: field_for_deprecated_url
   target_field: field_for_target_site
   status_field: field_for_status_code
+additionalFilters:
+  some_field.id:
+    operator: _eq
+    value: 1
 ```
 
 table - the table name of the routing data
@@ -50,6 +54,7 @@ table - the table name of the routing data
 request_field - the route of the deprecated url
 target_field - the new url for the redirect
 status_field - the status code field. (example value is 301 for permanently moved)
+additionalFilters - here you can specify some more filter options. The syntax is the same as in the directus plugin
 
 Note that if you use the Admin Plugin, a file with your configuration named directus-router.yaml will be saved in the `user/config/plugins/`-folder once the configuration is saved in the Admin.
 

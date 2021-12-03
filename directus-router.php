@@ -4,6 +4,7 @@ namespace Grav\Plugin;
 use Composer\Autoload\ClassLoader;
 use Grav\Common\Plugin;
 use Grav\Plugin\Directus\Utility\DirectusUtility;
+use mysql_xdevapi\Exception;
 
 /**
  * Class DirectusRouterPlugin
@@ -90,6 +91,17 @@ class DirectusRouterPlugin extends Plugin
         } else {
             $redirectUrl = '';
             $redirectStatusCode = false;
+
+            $postObj = [
+                'status' => 'draft',
+                $this->config()['mapping']['page_instance_field'] => $this->config()['additionalFilters'][$this->config()['mapping']['page_instance_field'] . '.id']['value'],
+                $this->config()['mapping']['request_field'] => $requestedUri
+            ];
+            try {
+                $response = $directusUtility->insert($this->config()['mapping']['table'], $postObj)->toArray();
+            } catch (\Error $e) {
+                $response = 'something went wrong';
+            }
         }
 
 

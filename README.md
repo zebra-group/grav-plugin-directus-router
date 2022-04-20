@@ -23,7 +23,7 @@ To install the plugin manually, download the zip-version of this repository and 
 You should now have all the plugin files under
 
     /your/site/grav/user/plugins/directus-router
-	
+
 > NOTE: This plugin is a modular component for Grav which may require other plugins to operate, please see its [blueprints.yaml-file on GitHub](https://github.com//grav-plugin-directus-router/blob/master/blueprints.yaml).
 
 ### Admin Plugin
@@ -38,6 +38,7 @@ Here is the default configuration and an explanation of available options:
 
 ```yaml
 enabled: true
+track_unknown: false
 mapping:
   table: routing_table
   request_field: field_for_deprecated_url
@@ -49,12 +50,14 @@ additionalFilters:
     value: 1
 ```
 
-table - the table name of the routing data
-
-request_field - the route of the deprecated url
-target_field - the new url for the redirect
-status_field - the status code field. (example value is 301 for permanently moved)
-additionalFilters - here you can specify some more filter options. The syntax is the same as in the directus plugin
+| Parameter | Description |
+| --- | --- |
+| track_unknown | add unknown routes that not match existing pages or routes as drafts (data graveyard ahead!) |
+| table | the table name of the routing data |
+| request_field | the route of the deprecated url |
+| target_field | the new url for the redirect |
+| status_field | the status code field. (example value is 301 for permanently moved) |
+| additionalFilters | here you can specify some more filter options. The syntax is the same as in the directus plugin |
 
 Note that if you use the Admin Plugin, a file with your configuration named directus-router.yaml will be saved in the `user/config/plugins/`-folder once the configuration is saved in the Admin.
 

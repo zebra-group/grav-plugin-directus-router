@@ -1,4 +1,5 @@
 enabled: true
+track_unknown: false
 mapping:
   table: routing_table
   request_field: field_for_deprecated_url

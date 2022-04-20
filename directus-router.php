@@ -84,14 +84,13 @@ class DirectusRouterPlugin extends Plugin
 
         $requestURL = $directusUtility->generateRequestUrl($this->config()['mapping']['table'], 0, 2, $filter);
         $redirectData = $directusUtility->get($requestURL)->toArray();
+        $redirectUrl = '';
+        $redirectStatusCode = false;
 
         if(isset($redirectData['data']['0'])) {
             $redirectUrl = $redirectData['data']['0'][$this->config()['mapping']['target_field']];
             $redirectStatusCode = $redirectData['data']['0'][$this->config()['mapping']['status_field']];
-        } else {
-            $redirectUrl = '';
-            $redirectStatusCode = false;
-
+        } elseif ($this->config()['track_unknown']) {
             $postObj = [
                 'status' => 'draft',
                 $this->config()['mapping']['page_instance_field'] => $this->config()['additionalFilters'][$this->config()['mapping']['page_instance_field'] . '.id']['value'],
